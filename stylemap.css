@@ -1,0 +1,50 @@
+html,
+body,
+#map-canvas {
+    height: 80%;
+    margin-right: 30%;
+    /* margin-right: auto; */
+    margin-top: 5%;
+    padding: 0px;
+    width: 80%;
+    /* background-image: url(bg.jpg);; */
+}
+
+/* body{
+            background-image: url(bg.jpg);
+        } */
+
+label {
+    margin-right: 30%;
+}
+
+#pac-input {
+    background-color: #f2efe8;
+    padding: 0 11px 0 13px;
+    width: 401px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+
+}
+
+#pac-input:focus {
+    border-color: #F7D358;
+    margin-left: -1px;
+    padding-left: 14px;
+    /* Regular padding-left + 1. */
+    width: 401px;
+}
+
+.pac-container {
+    border-color: #F7D358;
+    background-color: #f0eeea;
+}
+
+#sidebar {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 40%;
+}
