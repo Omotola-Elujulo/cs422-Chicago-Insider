@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chicago Insider</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <style>
+        
+        @import url("stylemap.css");
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyBNx9XD36RgKg0yXS_1NNZ5wMtKZwy3iKg"></script>
+
+    <script>
+        function initialize() {
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const directionsService = new google.maps.DirectionsService();
+            var mapOptions = {
+                center: new google.maps.LatLng(-33.8688, 151.2195),
+                zoom: 13
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+
+            // Set the default bounds for the autocomplete search results.
+            var defaultBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-33.8902, 41.881832),
+                new google.maps.LatLng(-33.8474, 151.2631));
+
+            var options = {
+                bounds: defaultBounds
+            };
+
+
+            // Get the HTML input element for the autocomplete search box.
+            var input = document.getElementById('pac-input');
+            // map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(input);
+
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+            // Define an info window to display the address details of the selected
+            // location.
+            var infowindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+                map: map
+            });
+            directionsRenderer.setPanel(
+                document.getElementById("sidebar")
+            );
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                infowindow.close();
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+
+                // If the place has a geometry, then present it on a map.
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);  // Why 17? Because it looks good.
+                }
+
+                marker.setIcon(({
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(35, 35)
+                }));
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                // Get the address details from the place returned by autocomplete.
+                var address = '';
+                if (place.address_components) {
+                    address = [
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+                        (place.address_components[2] && place.address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                            if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = new google.maps.LatLng(position.coords.latitude,
+                            position.coords.longitude);
+
+                        var infowindow = new google.maps.InfoWindow({
+                            map: map,
+                            position: pos,
+                            content: 'Great! your location is found.'
+                        });
+                        map.setCenter(pos);
+                                                    calculateAndDisplayRoute(pos, directionsService, directionsRenderer);
+
+                    }, function () {
+                        handleNoGeolocation(true);
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleNoGeolocation(false);
+                }
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                infowindow.open(map, marker);
+            });
+
+        }
+
+        
+    function calculateAndDisplayRoute(
+        start,
+        directionsService,
+        directionsRenderer
+    ) {
+
+        // const start = navigator.geolocation.getCurrentPosition(callback);;
+        const end = (document.getElementById("pac-input")).value;
+
+
+        directionsService
+            .route({
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+            })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+    }
+    //   const onChangeHandler = function () {
+    //         calculateAndDisplayRoute(directionsService, directionsRenderer);
+    //     };
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+
+    <div><label>Directions to <input id="pac-input" class="controls" type="text" placeholder="Start typing here"></label></div>
+    <div id="map-canvas"></div>
+    <div id="sidebar"></div>
+</body>
+
+</html>
