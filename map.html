@@ -40,6 +40,10 @@
         function initialize() {
             const directionsRenderer = new google.maps.DirectionsRenderer();
             const directionsService = new google.maps.DirectionsService();
+            directionsRenderer.setOptions({
+                polylineOptions: { strokeColor: 'white' }
+
+            })
             var mapOptions = {
                 center: new google.maps.LatLng(-33.8688, 151.2195),
                 zoom: 13
@@ -67,11 +71,14 @@
             // location.
             var infowindow = new google.maps.InfoWindow();
             var marker = new google.maps.Marker({
+            
                 map: map
             });
             directionsRenderer.setPanel(
                 document.getElementById("sidebar")
+                
             );
+            
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 infowindow.close();
                 marker.setVisible(false);
@@ -165,7 +172,7 @@
 
 <body>
 
-    <div><label>Directions to <input id="pac-input" class="controls" type="text" placeholder="Start typing here"></label></div>
+    <div><label>Directions to <input autofocus id="pac-input" class="controls" type="text" placeholder="Start typing here" value="1901 W Madison St Chicago, IL 60612" ></label></div>
     <div id="map-canvas"></div>
     <div id="sidebar"></div>
 </body>

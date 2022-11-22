@@ -2,12 +2,13 @@ html,
 body,
 #map-canvas {
     height: 80%;
-    margin-right: 30%;
-    /* margin-right: auto; */
-    margin-top: 5%;
+    /* margin-right: 30%; */
+    margin-right: auto;
+    /* margin-top: 5%; */
     padding: 0px;
-    width: 80%;
-    /* background-image: url(bg.jpg);; */
+    width: 100%;
+    background-image: url(bg.jpg);
+    /* color: white; */
 }
 
 /* body{
@@ -16,6 +17,7 @@ body,
 
 label {
     margin-right: 30%;
+    color: white;
 }
 
 #pac-input {
@@ -40,11 +42,13 @@ label {
 .pac-container {
     border-color: #F7D358;
     background-color: #f0eeea;
+    /* color: white; */
 }
 
 #sidebar {
-    position: absolute;
+    color: white;
+    /* position: absolute;
     right: 0;
     top: 10px;
-    width: 40%;
+    width: 40%; */
 }
