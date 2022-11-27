@@ -3,6 +3,8 @@ CS 422 User interface Design and Programming
 
 A Graphical User Interface for exploring the City of Chicago.
 
+Group Members: Omotola Elujulo, Nur Abdelhalim, Priyanka Patel, Manya Singh
+
 Tasks
 - Scroll through highest rated restaurants on upcoming feed on home screen and add first restaurant to the Calendar.
 - Click the “Music” category in the explore menu options, explore the concerts there, and then add preferred event to the calendar.
