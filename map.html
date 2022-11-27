@@ -125,7 +125,7 @@
                             content: 'Great! your location is found.'
                         });
                         map.setCenter(pos);
-                                                    calculateAndDisplayRoute(pos, directionsService, directionsRenderer);
+                        calculateAndDisplayRoute(pos, directionsService, directionsRenderer);
 
                     }, function () {
                         handleNoGeolocation(true);
@@ -146,11 +146,7 @@
         directionsService,
         directionsRenderer
     ) {
-
-        // const start = navigator.geolocation.getCurrentPosition(callback);;
         const end = (document.getElementById("pac-input")).value;
-
-
         directionsService
             .route({
                 origin: start,
@@ -162,9 +158,6 @@
             })
             .catch((e) => window.alert("Directions request failed due to " + status));
     }
-    //   const onChangeHandler = function () {
-    //         calculateAndDisplayRoute(directionsService, directionsRenderer);
-    //     };
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
