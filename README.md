@@ -1,5 +1,6 @@
 # Chicago-Insider
 CS 422 User interface Design and Programming
+
 A Graphical User Interface for exploring the City of Chicago.
 
 Tasks
